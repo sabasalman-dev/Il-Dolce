@@ -4,8 +4,8 @@ export function Hero() {
       <div className="container hero__content">
         <p className="hero__eyebrow">Artisan Bakery · Est. 2026</p>
         <h1 className="hero__title">
-          Fourty Flavours of
-          <em> Hand crafted tarts</em>
+          Forty Flavours of
+          <em> Handcrafted tarts</em>
         </h1>
         <p className="hero__subtitle">
           Baked fresh each morning with seasonal ingredients. Order for delivery
