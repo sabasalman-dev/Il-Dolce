@@ -23,6 +23,15 @@ export function createOrderId(): string {
   return `ORD-${Date.now().toString(36).toUpperCase()}`;
 }
 
+/** Earliest delivery date (tomorrow, local time) as YYYY-MM-DD — delivery is always next day */
+export function getMinDeliveryDate(): string {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${month}-${day}`;
+}
+
 export function validateOrderForm(data: OrderFormData): Partial<Record<keyof OrderFormData, string>> {
   const errors: Partial<Record<keyof OrderFormData, string>> = {};
 
@@ -35,6 +44,9 @@ export function validateOrderForm(data: OrderFormData): Partial<Record<keyof Ord
   if (!data.city.trim()) errors.city = 'City is required';
   if (!data.postalCode.trim()) errors.postalCode = 'Postal code is required';
   if (!data.deliveryDate) errors.deliveryDate = 'Delivery date is required';
+  else if (data.deliveryDate < getMinDeliveryDate()) {
+    errors.deliveryDate = 'Earliest delivery is tomorrow';
+  }
   if (!data.deliveryTime) errors.deliveryTime = 'Delivery time is required';
 
   return errors;
