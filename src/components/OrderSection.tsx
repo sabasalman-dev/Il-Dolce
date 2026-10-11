@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import type { CSSProperties } from 'react';
 import type { CartItem, DeliveryOrder, OrderFormData } from '../types';
 import { TARTS, DELIVERY_FEE } from '../data/tarts';
-import { createOrderId, orderService, validateOrderForm } from '../services/orders';
+import { createOrderId, getMinDeliveryDate, orderService, validateOrderForm } from '../services/orders';
 
 interface OrderSectionProps {
   cart: CartItem[];
@@ -48,7 +48,7 @@ export function OrderSection({ cart, onUpdateQuantity, onOrderComplete }: OrderS
   const subtotal = lineItems.reduce((sum, item) => sum + item.lineTotal, 0);
   const total = subtotal + (lineItems.length > 0 ? DELIVERY_FEE : 0);
 
-  const minDate = new Date().toISOString().split('T')[0];
+  const minDate = getMinDeliveryDate();
 
   function handleChange(field: keyof OrderFormData, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));

@@ -7,8 +7,7 @@ export function Header({ cartCount }: HeaderProps) {
     <header className="header">
       <div className="container header__inner">
         <a href="#" className="logo">
-          <span className="logo__mark">Il</span>
-          <span className="logo__name">Dolce</span>
+          <img src="/logo.png" alt="Il Dolce" className="logo__image" />
         </a>
         <nav className="nav">
           <a href="#menu">Menu</a>
